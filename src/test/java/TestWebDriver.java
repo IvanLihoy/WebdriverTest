@@ -18,13 +18,13 @@ public class TestWebDriver {
     public static void setup() {
         driver = new ChromeDriver();
         driver.get("https://www.random.org/");
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.switchTo().frame(driver.findElement(By.tagName("iframe")));
     }
 
     @Test
-    public static void test() throws InterruptedException {
+    public static void numberGeneration() throws InterruptedException {
         WebElement min = driver.findElement(By.cssSelector("#true-random-integer-generator-min"));
         min.clear();
         min.sendKeys("10");
