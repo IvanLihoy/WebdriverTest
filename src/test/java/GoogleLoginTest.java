@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class GoogleLoginTest {
 
     WebDriver driver;
+
     private final String negativeEmail = "lihoy92ivan@gmail.ru";
     private final String positiveEmail = "lihoy92ivan@gmail.com";
     private final String negativePassword = "ivan12345";
@@ -42,9 +43,9 @@ public class GoogleLoginTest {
         nextPassButton.click();
     }
 
-    private boolean checkElementIsPresent(String findElement) {
+    private boolean checkElementPresence(String selector) {
         try {
-            driver.findElement(By.xpath(findElement)).getText();
+            driver.findElement(By.xpath(selector));
             return true;
         } catch (ElementNotFoundException e) {
             return false;
@@ -55,16 +56,15 @@ public class GoogleLoginTest {
     void loginToGoogleNegativeEmail() throws InterruptedException {
         checkEmail(negativeEmail);
         Thread.sleep(2000);
-        checkElementIsPresent(".//*[@id='view_container']/form/div[2]/div/div[1]/div[1]/div/div[2]/div[2]/div");
-        //Assert.assertEquals(driver.findElement(By.xpath(".//*[@id='view_container']/form/div[2]/div/div[1]/div[1]/div/div[2]/div[2]/div")).getText(), "Не удалось найти аккаунт Google");
+        checkElementPresence(".//*[@id='view_container']/form/div[2]/div/div[1]/div[1]/div/div[2]/div[2]/div");
+        Assert.assertEquals(driver.findElement(By.xpath(".//*[@id='view_container']/form/div[2]/div/div[1]/div[1]/div/div[2]/div[2]/div")).getText(), "Не удалось найти аккаунт Google");
     }
 
     @Test(priority = 2, description = "positive email")
     void loginToGooglePositiveEmail() throws InterruptedException {
         checkEmail(positiveEmail);
         Thread.sleep(2000);
-        checkElementIsPresent(".//*[@id='password']/div[1]/div/div[1]/input");
-        //Assert.assertTrue(driver.findElement(By.xpath(".//*[@id='password']/div[1]/div/div[1]/input")).isDisplayed());
+        Assert.assertTrue(checkElementPresence(".//*[@id='password']/div[1]/div/div[1]/input"));
     }
 
     @Test(priority = 3, description = "negative password")
@@ -72,8 +72,7 @@ public class GoogleLoginTest {
         checkEmail(positiveEmail);
         checkPassword(negativePassword);
         Thread.sleep(2000);
-        checkElementIsPresent(".//*[@id='password']/div[2]/div[2]");
-        //Assert.assertEquals(driver.findElement(By.xpath(".//*[@id='password']/div[2]/div[2]")).getText(), "Неверный пароль. Повторите попытку.");
+        Assert.assertEquals(driver.findElement(By.xpath(".//*[@id='password']/div[2]/div[2]")).getText(), "Неверный пароль. Повторите попытку.");
     }
 
     @Test(priority = 4, description = "positive password")
@@ -83,7 +82,6 @@ public class GoogleLoginTest {
         Thread.sleep(2000);
         Assert.assertTrue(driver.findElement(By.linkText("Почта")).isDisplayed());
     }
-
 
     @AfterMethod
     void tearDown(ITestResult testResult){
