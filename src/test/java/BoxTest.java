@@ -33,47 +33,61 @@ public class BoxTest {
     }
 
     @Test
-    void uploadFile() throws InterruptedException, AWTException {
+    void uploadFile() {
         driver.findElement(By.cssSelector("input[name='login']")).sendKeys("rvalek@intersog.de");
         driver.findElement(By.cssSelector("input[name='password']")).sendKeys("welcome2hillel");
         driver.findElement(By.cssSelector("div.form-buttons")).click();
         sleep(2);
-        driver.findElement(By.xpath(".//*[@id='mod-action-bar-1']/div[2]/div[2]/div[2]/a/span[1]")).click();
-        driver.findElement(By.xpath(".//*[@id='upload-menu']/li[1]/label")).click();
+        driver.findElement(By.cssSelector("a[aria-owns='upload-menu']")).click();
+        driver.findElement(By.cssSelector("li[class='upload-file-handler-target']")).click();
         sleep(2);
-
-        setClipboardData("IvanLihoyBoxTest.txt");
-        sleep(2);
-
-        Robot robot = new Robot();
-        robot.delay(1000);
-        robot.keyPress(KeyEvent.VK_CONTROL);
-        sleep(2);
-        robot.delay(300);
-        robot.keyPress(KeyEvent.VK_V);
-        sleep(2);
-        robot.delay(300);
-        robot.keyRelease(KeyEvent.VK_V);
-        sleep(2);
-        robot.delay(300);
-        robot.keyRelease(KeyEvent.VK_CONTROL);
-        sleep(2);
-        robot.delay(300);
-        robot.keyPress(KeyEvent.VK_ENTER);
-        sleep(2);
-        robot.delay(300);
-        robot.keyRelease(KeyEvent.VK_ENTER);
-        sleep(2);
-        robot.delay(300);
+        driver.findElement(By.cssSelector("input[class='upload-handler-picker']")).sendKeys("C:\\Users\\Ivan\\IvanLihoyBoxTest.txt");
         sleep(5);
-
         Assert.assertTrue(driver.findElement(By.linkText("IvanLihoyBoxTest.txt")).isDisplayed());
-        
     }
-     private void setClipboardData(String string) {
-        StringSelection stringSelection = new StringSelection(string);
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
-    }
+
+//    @Test
+//    void uploadFileRobot() throws AWTException {
+//        driver.findElement(By.cssSelector("input[name='login']")).sendKeys("rvalek@intersog.de");
+//        driver.findElement(By.cssSelector("input[name='password']")).sendKeys("welcome2hillel");
+//        driver.findElement(By.cssSelector("div.form-buttons")).click();
+//        sleep(2);
+//        driver.findElement(By.cssSelector("a[aria-owns='upload-menu']")).click();
+//        driver.findElement(By.cssSelector("li[class='upload-file-handler-target']")).click();
+//        sleep(2);
+//
+//        setClipboardData("IvanLihoyBoxTest.txt");
+//        sleep(2);
+//
+//        Robot robot = new Robot();
+//        robot.delay(1000);
+//        robot.keyPress(KeyEvent.VK_CONTROL);
+//        sleep(2);
+//        robot.delay(300);
+//        robot.keyPress(KeyEvent.VK_V);
+//        sleep(2);
+//        robot.delay(300);
+//        robot.keyRelease(KeyEvent.VK_V);
+//        sleep(2);
+//        robot.delay(300);
+//        robot.keyRelease(KeyEvent.VK_CONTROL);
+//        sleep(2);
+//        robot.delay(300);
+//        robot.keyPress(KeyEvent.VK_ENTER);
+//        sleep(2);
+//        robot.delay(300);
+//        robot.keyRelease(KeyEvent.VK_ENTER);
+//        sleep(2);
+//        robot.delay(300);
+//        sleep(5);
+//
+//        Assert.assertTrue(driver.findElement(By.linkText("IvanLihoyBoxTest.txt")).isDisplayed());
+//    }
+//
+//     private void setClipboardData(String string) {
+//        StringSelection stringSelection = new StringSelection(string);
+//        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+//    }
 
     @AfterTest
     void tearDown(){
